@@ -1,7 +1,11 @@
-ToDo App.
+# **ToDo App to keep focusing**
 
-Used React. 
-[Server](https://github.com/poznianski/todoapp_be) is NodeJS, PostgreSQL, Sequelize. 
+[DEMO-LINK](https://todo-app-vsnv.onrender.com/) 
 
-`npm i
-vite`
+
+
+Used React, Context <br>
+[Server](https://github.com/poznianski/todoapp_be) is NodeJS, Express, PostgreSQL, Sequelize.
+
+* npm i
+* npm run dev
