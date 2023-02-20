@@ -1,91 +1,94 @@
-import classNames from 'classnames'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Todo } from '../../types/Todo'
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Todo } from '../../types/Todo';
 
 type Props = {
-  todo: Todo
-  isLoading: boolean
-  onRemove?: (todoId: number) => Promise<void>
-  toggleTodoStatus: (todoData: Todo) => Promise<void>
-  removeTodo: (todoId: number) => Promise<void>
-  updateTodo: (todoData: Todo) => Promise<void>
-}
+  todo: Todo;
+  isLoading: boolean;
+  onRemove?: (todoId: number) => Promise<void>;
+  toggleTodoStatus: (todoData: Todo) => Promise<void>;
+  removeTodo: (todoId: number) => Promise<void>;
+  updateTodo: (todoData: Todo) => Promise<void>;
+};
 
 export const TodoListItem: React.FC<Props> = React.memo(
   ({ todo, onRemove, isLoading, toggleTodoStatus, removeTodo, updateTodo }) => {
-    const { title, id, completed } = todo
+    const { title, id, completed } = todo;
 
-    const textInput = useRef<HTMLInputElement>(null)
+    const textInput = useRef<HTMLInputElement>(null);
 
-    const [isEditing, setIsEditing] = useState(false)
-    const [newTitle, setNewTitle] = useState(title)
+    const [isEditing, setIsEditing] = useState(false);
+    const [newTitle, setNewTitle] = useState(title);
 
     const handleStatusToggle = () => {
-      toggleTodoStatus({ id, title, completed: !completed })
-    }
+      toggleTodoStatus({ id, title, completed: !completed });
+    };
 
     const handleRemoveClick = useCallback(() => {
       if (onRemove) {
-        onRemove(id)
+        onRemove(id);
       }
-    }, [id])
+    }, [id]);
 
     const handleRemove = useCallback(() => {
-      removeTodo(id)
-    }, [])
+      removeTodo(id);
+    }, []);
 
     const changeTodoTitle = () => {
-      const trimmedTitle = newTitle.trim()
+      const trimmedTitle = newTitle.trim();
 
-      setIsEditing(false)
+      setIsEditing(false);
 
       if (!trimmedTitle) {
-        handleRemove()
-        return
+        handleRemove();
+        return;
       }
 
       if (title === trimmedTitle) {
-        return
+        return;
       }
 
-      setNewTitle(trimmedTitle)
-      updateTodo({ id, title: trimmedTitle, completed })
-    }
+      setNewTitle(trimmedTitle);
+      updateTodo({ id, title: trimmedTitle, completed });
+    };
 
     const handleFormSubmit = useCallback(
       (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        changeTodoTitle()
+        changeTodoTitle();
       },
       [changeTodoTitle]
-    )
+    );
 
     const handleInputKeydown = useCallback(
       (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Escape') {
-          setIsEditing(false)
-          setNewTitle(title)
+          setIsEditing(false);
+          setNewTitle(title);
         }
       },
       [title]
-    )
+    );
 
-    const handleInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewTitle(event.target.value)
-    }, [])
+    const handleInput = useCallback(
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNewTitle(event.target.value);
+      },
+      []
+    );
 
-    const handleOnBlur = useCallback(changeTodoTitle, [changeTodoTitle])
+    const handleOnBlur = useCallback(changeTodoTitle, [changeTodoTitle]);
 
     const handleDoubleClick = useCallback(() => {
-      setIsEditing(true)
-    }, [])
+      setIsEditing(true);
+    }, []);
 
     useEffect(() => {
       if (textInput.current) {
-        textInput.current.focus()
+        textInput.current.focus();
       }
-    }, [isEditing])
+    }, [isEditing]);
 
     return (
       <div className={classNames('todo', { completed })}>
@@ -117,7 +120,11 @@ export const TodoListItem: React.FC<Props> = React.memo(
               {title}
             </span>
 
-            <button type="button" className="todo__remove" onClick={handleRemoveClick}>
+            <button
+              type="button"
+              className="todo__remove"
+              onClick={handleRemoveClick}
+            >
               x
             </button>
           </>
@@ -132,6 +139,6 @@ export const TodoListItem: React.FC<Props> = React.memo(
           <div className="loader" />
         </div>
       </div>
-    )
+    );
   }
-)
+);

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
-import { getAllTodos } from '../../api/todos';
-import { FilterType } from '../../types/FilterType';
+import React, { useCallback, useState } from 'react';
+import { Todo } from '../../types/Todo';
 
 type Props = {
   newTodoField: React.RefObject<HTMLInputElement>;
@@ -12,7 +11,7 @@ type Props = {
   toggleAllTodosStatus: (completed: boolean) => void;
   todosLength: number;
   completedTodosLen: number;
-  filteredTodos: boolean;
+  filteredTodos: Todo[];
 };
 
 export const Header: React.FC<Props> = React.memo(

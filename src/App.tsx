@@ -72,18 +72,21 @@ export const App: React.FC = () => {
     }
   };
 
-  const removeTodoFromServer = useCallback(async (todoId: number) => {
-    try {
-      if (user) {
-        await removeTodo(todoId);
+  const removeTodoFromServer = useCallback(
+    async (todoId: number) => {
+      try {
+        if (user) {
+          await removeTodo(todoId);
 
-        loadTodos();
+          loadTodos();
+        }
+      } catch (error) {
+        setHasError(true);
+        setErrorMessage('Unable to remove ToDo');
       }
-    } catch (error) {
-      setHasError(true);
-      setErrorMessage('Unable to remove ToDo');
-    }
-  }, []);
+    },
+    [user]
+  );
 
   const completedTodos = useMemo(
     () => todos.filter(({ completed }) => completed),
@@ -141,7 +144,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const setNewTodoTitleToServer = useCallback((todoData: Todo) => {
+  const setNewTodoTitleToServer = useCallback(async (todoData: Todo) => {
     try {
       updateTodo(todoData).then(loadTodos);
     } catch (error) {
@@ -158,7 +161,7 @@ export const App: React.FC = () => {
     }, 3000);
   }, [hasError]);
 
-  let userName = JSON.parse(localStorage.getItem('user')).name;
+  let userName = JSON.parse(localStorage.getItem('user')!).name || '';
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
