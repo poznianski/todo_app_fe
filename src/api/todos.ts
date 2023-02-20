@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Todo } from '../types/Todo'
 import { FilterType } from '../types/FilterType'
 
-axios.defaults.baseURL = 'http://localhost:3001'
+axios.defaults.baseURL = 'http://localhost:5501'
 
 export function getAllTodos(type?: FilterType): Promise<Todo[]> {
   return axios.get('/todos').then((res) => res.data)

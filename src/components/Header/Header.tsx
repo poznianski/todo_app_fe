@@ -1,19 +1,19 @@
-import classNames from 'classnames'
-import React, { useCallback, useEffect, useState } from 'react'
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getAllTodos } from '../../api/todos';
 import { FilterType } from '../../types/FilterType';
 
 type Props = {
-  newTodoField: React.RefObject<HTMLInputElement>
-  setHasError: (status: boolean) => void
-  setErrorMessage: (message: string) => void
-  addNewTodo: (title: string) => Promise<void>
-  isAdding: boolean
-  toggleAllTodosStatus: (completed: boolean) => void
-  todosLength: number
-  completedTodosLen: number
-  filteredTodos: boolean
-}
+  newTodoField: React.RefObject<HTMLInputElement>;
+  setHasError: (status: boolean) => void;
+  setErrorMessage: (message: string) => void;
+  addNewTodo: (title: string) => Promise<void>;
+  isAdding: boolean;
+  toggleAllTodosStatus: (completed: boolean) => void;
+  todosLength: number;
+  completedTodosLen: number;
+  filteredTodos: boolean;
+};
 
 export const Header: React.FC<Props> = React.memo(
   ({
@@ -26,7 +26,7 @@ export const Header: React.FC<Props> = React.memo(
     completedTodosLen,
     toggleAllTodosStatus,
   }) => {
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('');
     const isAllCompleted = completedTodosLen === todosLength;
     const hasActiveTodos = completedTodosLen > 0;
 
@@ -36,20 +36,20 @@ export const Header: React.FC<Props> = React.memo(
 
     const handleSubmit = useCallback(
       (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (!title.trim()) {
-          setHasError(true)
-          setErrorMessage('ToDo title can`t be empty!')
+          setHasError(true);
+          setErrorMessage('ToDo title can`t be empty!');
 
-          return
+          return;
         }
 
-        addNewTodo(title.trim())
-        setTitle('')
+        addNewTodo(title.trim());
+        setTitle('');
       },
       [title]
-    )
+    );
 
     return (
       <header className="todoapp__header">
@@ -70,13 +70,13 @@ export const Header: React.FC<Props> = React.memo(
             type="text"
             ref={newTodoField}
             className="todoapp__new-todo"
-            placeholder="What needs to be done?"
+            placeholder="What's your main focus today?"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             disabled={isAdding}
           />
         </form>
       </header>
-    )
+    );
   }
-)
+);

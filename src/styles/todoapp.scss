@@ -1,26 +1,32 @@
+@import './theme-variables.scss';
 
 .todoapp {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
   font-weight: 300;
   color: #4d4d4d;
-  margin: 40px 20px;
+  padding: 30px;
 
   &__content {
     margin-bottom: 20px;
-    background: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
-      0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    @include themify($themes) {
+      background-color: themed('colorBackground');
+    }
   }
 
   &__title {
-    font-size: 100px;
+    font-size: 50px;
     font-weight: 100;
     text-align: center;
     color: rgba(175, 47, 47, 0.15);
     -webkit-text-rendering: optimizeLegibility;
     -moz-text-rendering: optimizeLegibility;
     text-rendering: optimizeLegibility;
+
+    @include themify($themes) {
+      color: themed('colorText');
+    }
   }
 
   &__header {
@@ -49,7 +55,7 @@
     }
 
     &:before {
-      content: "❯";
+      content: '❯';
       transform: translateY(2px) rotate(90deg);
       line-height: 0;
     }
@@ -69,12 +75,14 @@
 
     border: none;
     background: rgba(0, 0, 0, 0.01);
-    box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 
     &::placeholder {
       font-style: italic;
       font-weight: 300;
-      color: #e6e6e6;
+      @include themify($themes) {
+        color: themed('colorTextSecondary');
+      }
     }
   }
 
@@ -97,10 +105,8 @@
     text-align: center;
     border-top: 1px solid #e6e6e6;
 
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-      0 8px 0 -3px #f6f6f6,
-      0 9px 1px -3px rgba(0, 0, 0, 0.2),
-      0 16px 0 -6px #f6f6f6,
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+      0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
       0 17px 2px -6px rgba(0, 0, 0, 0.2);
   }
 

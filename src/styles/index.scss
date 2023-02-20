@@ -1,11 +1,7 @@
-iframe {
-  display: none;
-}
+@import './theme-variables.scss';
 
-body {
-  min-width: 230px;
-  max-width: 550px;
-  margin: 0 auto;
+.container {
+  width: 600px;
 }
 
 .notification {
@@ -20,6 +16,92 @@ body {
   pointer-events: none;
 }
 
-@import "./todoapp";
-@import "./todo";
-@import "./filter";
+.toggle_theme {
+}
+
+.layout-wrapper {
+  @include themify($themes) {
+    background-color: themed('colorBackground');
+    background-image: url('/src/assets/noise-50.png');
+  }
+}
+
+.container-wrapper {
+  height: 100vh;
+  min-width: 488px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+// toggle-theme button
+
+.toggle-btn-section {
+  display: flex;
+  justify-content: right;
+  .toggle-checkbox {
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    .toggle-btn__input {
+      height: 0;
+      width: 0;
+      visibility: hidden;
+    }
+
+    .toggle-btn__input-label {
+      cursor: pointer;
+      text-indent: -9999px;
+      width: 46px;
+      height: 20px;
+      display: block;
+      border-radius: 23px;
+      position: relative;
+      border: none;
+      margin-top: 2px;
+
+      @include themify($themes) {
+        background-color: themed('toggleBackground');
+      }
+
+      &::after {
+        content: '?';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        transition: 0.3s;
+        box-shadow: 0 5px 10px rgba(153, 153, 153, 0.4);
+        background-color: #fff;
+      }
+    }
+
+    .toggle-btn__input:checked ~ .toggle-btn__input-label {
+      &:after {
+        background: #fff;
+        left: calc(100% - 3px);
+        transform: translateX(-100%);
+      }
+    }
+
+    .toggle-btn__input:checked ~ .toggle-btn__theme {
+      &:after {
+        // theme switch circle background in light theme
+        background: #fff;
+        left: calc(100% - 3px);
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  .toggle-btn__input:checked ~ .toggle-btn__input-label {
+    background-color: #82deff;
+  }
+}
+
+@import './todoapp';
+@import './todo';
+@import './filter';

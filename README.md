@@ -1,6 +1,7 @@
 ToDo App.
 
-Used React. Server is NodeJS, PostgreSQL, Sequelize.
+Used React. 
+[Server](https://github.com/poznianski/todoapp_be) is NodeJS, PostgreSQL, Sequelize. 
 
-npm i
-npm run dev
+`npm i
+vite`
